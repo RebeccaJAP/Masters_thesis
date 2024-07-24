@@ -10,15 +10,33 @@ library(Seurat)
 #set.seed(34)
 set.seed(97)
 
+
 dataname <- commandArgs(trailingOnly = TRUE)
-load(paste0("/scratch/project_2010414/ot/saved/Method_tests/Karyotyped_donors/ref_annotated_data/",dataname)) 
 
 
-# Dummy/reference cell is created and combined with the original data:
+# Load either clustered or original data subsetted by sample and cluster / cell type.
+# Both files contain a Seurat object called "donor_subset_sample".
+# The object has all of the sample's donors but the "status" column has value "observation" for the main donor and "reference" for the others.
 
-dummy_cell <- as(rowMeans(donor_subset_sample@assays$RNA$counts), "sparseMatrix")
+load(paste0("/scratch/project_2010414/ot/saved/Method_tests/Karyotyped_donors/ref_annotated_data_clust/",dataname))
+# load(paste0("/scratch/project_2010414/ot/saved/Method_tests/Karyotyped_donors/ref_annotated_data_d20/",dataname))
+
+
+# Separate other donors' cells from the observations
+
+reference <- donor_subset_sample[,which(donor_subset_sample$status=="reference")]
+observation <- donor_subset_sample[,which(donor_subset_sample$status=="observation")]
+
+
+# Create a dummy cell to use as the reference
+
+dummy_cell <- as(rowMeans(reference@assays$RNA$counts), "sparseMatrix")
 dimnames(dummy_cell) <- list(rownames(donor_subset_sample@assays$RNA$counts), c("reference_cell"))
-donor_subset_sample_mat <- cbind(donor_subset_sample@assays$RNA$counts, dummy_cell)
+
+
+# Combine the matrices of counts of the dummy cell and the observations.
+
+donor_subset_sample_mat <- cbind(observation@assays$RNA$counts, dummy_cell)
 
 
 sce_donor_subset_sample <- SCEVAN::pipelineCNA(donor_subset_sample_mat,
