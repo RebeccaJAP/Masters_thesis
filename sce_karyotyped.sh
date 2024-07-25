@@ -21,7 +21,8 @@ fi
 # Specify a temp folder path
 echo "TMPDIR=/scratch/project_2010414" >> ~/.Renviron
 
-# Change ref_annotated_data_clust.txt to ref_annotated_data_d20.txt to use the clustered data and change the array size accordingly.
+# Change ref_annotated_data_clust.txt to ref_annotated_data_d20.txt to use the original cell types data
+# and change the array size accordingly.
 dataname=$(sed -n "$SLURM_ARRAY_TASK_ID"p ref_annotated_data_clust.txt)
 
 # Run the R script
