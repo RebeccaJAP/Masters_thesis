@@ -1,0 +1,436 @@
+---
+title: "Reclustering"
+author: "Rebecca Pirnes"
+date: "2024-07-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+.libPaths(c("/projappl/project_2010414/project_rpackages_4.4.0", .libPaths()))
+
+```
+
+```{r}
+
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+
+```
+
+
+```{r}
+
+set.seed(27)
+
+```
+
+
+
+
+```{r}
+
+obj <- readRDS("/scratch/project_2010414/ot/saved/otPools_all_integrated_v3_annotNour.RDS")
+
+```
+
+
+
+## Original clusters and cell types
+
+
+There are 23 cell types in the original object.
+
+The plot below visualizes how well the original cell types fit the data clusters.
+
+```{r}
+
+obj_umap <- RunUMAP(obj, dims = 1:23)
+
+DimPlot(obj_umap, reduction = "umap", group.by = "twoPassAnnotation_clean")
+
+```
+
+Pericytes seem to form several separable clusters, while many of the other cell types contain similar cells to each other.
+
+
+## Original Seurat clusters
+
+
+```{r}
+
+head(Idents(obj))
+
+```
+
+There are 29 clusters in the object.
+
+
+```{r}
+
+obj_umap <- RunUMAP(obj, dims = 0:28)
+
+
+DimPlot(obj_umap, reduction = "umap")
+
+```
+
+
+```{r}
+
+freq_orig <- table(obj$seurat_clusters)
+
+freq_orig
+
+median(freq_orig)
+
+mean(freq_orig)
+
+```
+
+
+The smallest cluster has 276 cells.
+
+
+
+## Finding the appropriate number of clusters
+
+This section follows the following tutorials:
+
+* https://satijalab.org/seurat/articles/pbmc3k_tutorial.html
+* https://hbctraining.github.io/scRNA-seq/lessons/07_SC_clustering_cells_SCT.html
+* https://hbctraining.github.io/scRNA-seq/lessons/elbow_plot_metric.html
+
+
+```{r}
+
+ElbowPlot(obj, ndims=50)
+
+```
+
+There is no clear point of bending in the plot, but using for example the first 10, or 13--16 principal components might be justified.
+
+
+```{r}
+
+DimHeatmap(obj, dims = 1:16, cells = 500, balanced = TRUE)
+
+```
+
+Choosing the smaller value of the two following metrics is another possibility for choosing the appropriate number of PCs.
+
+
+```{r}
+
+var_percent <- obj[["pca"]]@stdev / sum(obj[["pca"]]@stdev) * 100
+
+cum_percent <- cumsum(var_percent)
+
+which(cum_percent > 90 & var_percent < 5)[1]
+
+```
+
+The first 42 PCs explain over 90% of the variation in the data while less than 5% of the variation is explained by PC42 alone.
+
+
+
+```{r}
+
+variation_difference <- sort(which((var_percent[1:length(var_percent) - 1] - var_percent[2:length(var_percent)]) > 0.1), decreasing = T)[1] + 1
+
+variation_difference
+```
+
+PC16 is the first PC for which the change in percentage of variation explained is less than 0.1% between one PC (PC16) and the following one (PC17). 
+
+
+Since 16 < 42, this method would indicate that using the first 16 PCs would be the best option.
+
+
+
+# Reclustering
+
+
+## V1: 14 PCs, resolution 0.5
+
+
+V1 has `resolution = 0.5` to lessen the number of clusters, but otherwise the default parameters are used. The dimensions are limited to the 14 PCs suggested by the heatmap and by the elbow plot.
+
+
+```{r}
+
+new_obj_V1 <- FindNeighbors(obj, dims = 1:14)
+
+```
+
+```{r}
+
+new_obj_V1 <- FindClusters(
+  new_obj_V1,
+  #graph.name = NULL,
+  #cluster.name = NULL,
+  modularity.fxn = 1,
+  #initial.membership = NULL,
+  #node.sizes = NULL,
+  resolution = 0.5,
+  method = "matrix",
+  algorithm = 1,
+  n.start = 10,
+  n.iter = 10,
+  #random.seed = 0,
+  group.singletons = TRUE,
+  temp.file.location = "/scratch/project_2010414",
+  #edge.file.name = NULL,
+  verbose = TRUE,
+)
+
+```
+
+```{r}
+
+table(new_obj_V1$seurat_clusters)
+
+```
+
+There are 24 clusters. The smallest one has 1547 cells, making the cluster sizes more equal to each other. However, the number of clusters is still larger than the number of original cell types, and the clusters do not quite seem to be clearly separated:
+
+
+```{r}
+
+new_obj_V1 <- RunUMAP(new_obj_V1, dims = 0:24)
+
+```
+
+```{r}
+
+DimPlot(new_obj_V1, reduction = "umap")
+
+```
+
+The plot below shows what clusters are represented in each of the original cel types:
+
+
+```{r}
+
+DimPlot(new_obj_V1, reduction = "umap", raster = F, split.by = "twoPassAnnotation_clean")
+
+```
+
+
+
+
+# V2: 14 PCs, resolution 0.2
+
+
+Version 2 is similar to V1 but has `resolution = 0.2` to get smaller number of clusters.
+
+
+```{r}
+
+new_obj_V2 <- FindClusters(
+  new_obj_V1,
+  #graph.name = NULL,
+  #cluster.name = NULL,
+  modularity.fxn = 1,
+  #initial.membership = NULL,
+  #node.sizes = NULL,
+  resolution = 0.2,
+  method = "matrix",
+  algorithm = 1,
+  n.start = 10,
+  n.iter = 10,
+  #random.seed = 0,
+  group.singletons = TRUE,
+  temp.file.location = "/scratch/project_2010414",
+  #edge.file.name = NULL,
+  verbose = TRUE,
+)
+
+```
+
+
+```{r}
+
+table(new_obj_V2$seurat_clusters)
+
+```
+
+Now, there are 13 clusters with 584 cells in the smallest one.
+
+
+
+```{r}
+
+new_obj_V2 <- RunUMAP(new_obj_V2, dims = 0:12)
+
+```
+
+
+
+
+```{r}
+
+V2_plot <- DimPlot(new_obj_V2, reduction = "umap")
+
+
+V2_plot
+
+```
+
+There are 13 clusters that are much more clearly separated from each other than in the earlier versions. 
+
+
+Different donors' and cell types' within each clusters are presented in the plots below:
+
+
+```{r}
+
+V2_plot_split <- DimPlot(new_obj_V2, reduction = "umap", raster= F, split.by = "donor")
+
+```
+
+```{r}
+DimPlot(new_obj_V2, reduction = "umap", raster= F, split.by = "twoPassAnnotation_clean")
+```
+
+
+
+```{r, eval=F}
+
+HoverLocator(plot = V2_plot, information = FetchData(new_obj_V2, vars = c("seurat_cluster", "twoPassAnnotation_clean", "donor")))
+
+```
+
+
+
+Below, the relationship between clusters and donors is explored more:
+
+```{r}
+
+new_obj_V2_paim <- new_obj_V2[,which(new_obj_V2$donor == "HPSI0115i-paim_3")]
+
+DimPlot(new_obj_V2_paim, reduction = "umap")
+
+V2_plot_split + facet_wrap(vars(donor))
+
+```
+
+
+```{r}
+
+new_obj_V2@meta.data %>%
+  group_by(seurat_clusters, donor) %>%
+  summarize(n = n()) %>%
+  ungroup(donor) %>%
+  mutate(percent_of_clust = round(n/sum(n), 2)) %>%
+  arrange(seurat_clusters, desc(percent_of_clust)) %>%
+  mutate(max(percent_of_clust))
+   
+
+```
+
+
+
+## V3: 16 PCs, resolution 0.5
+
+Next, 16 dimension are used as suggested by the non-visualizing method and the elbow plot. With res 0.5, there are 25 clusters. As this is far too many clusters, no further visualization is done.
+
+
+```{r}
+
+new_obj_V3 <- FindNeighbors(obj, dims = 1:16)
+
+```
+
+```{r}
+
+new_obj_V3 <- FindClusters(
+  new_obj_V3,
+  #graph.name = NULL,
+  #cluster.name = NULL,
+  modularity.fxn = 1,
+  #initial.membership = NULL,
+  #node.sizes = NULL,
+  resolution = 0.5,
+  method = "matrix",
+  algorithm = 1,
+  n.start = 10,
+  n.iter = 10,
+  #random.seed = 0,
+  group.singletons = TRUE,
+  temp.file.location = "/scratch/project_2010414",
+  #edge.file.name = NULL,
+  verbose = TRUE,
+)
+
+```
+
+
+```{r}
+
+table(new_obj_V3$seurat_clusters)
+
+```
+
+
+
+
+## V4: 16 PCs, resolution 0.2
+
+
+
+```{r}
+
+new_obj_V4 <- FindClusters(
+  new_obj_V3,
+  #graph.name = NULL,
+  #cluster.name = NULL,
+  modularity.fxn = 1,
+  #initial.membership = NULL,
+  #node.sizes = NULL,
+  resolution = 0.2,
+  method = "matrix",
+  algorithm = 1,
+  n.start = 10,
+  n.iter = 10,
+  #random.seed = 0,
+  group.singletons = TRUE,
+  temp.file.location = "/scratch/project_2010414",
+  #edge.file.name = NULL,
+  verbose = TRUE,
+)
+
+```
+
+
+```{r}
+
+new_obj_V4 <- RunUMAP(new_obj_V4, dims = 0:13)
+
+```
+
+
+```{r}
+
+DimPlot(new_obj_V4, reduction = "umap")
+
+```
+
+
+With res = 0.2 there are 14 clusters. The results are similar to using 14 PCs but the extra clusters do not seem clearly separated from others.
+
+Alltogether, using `dims = 1:14` and `resolution = 0.2` seems to be the best option.
+
+
+
+
+
+
+
+
