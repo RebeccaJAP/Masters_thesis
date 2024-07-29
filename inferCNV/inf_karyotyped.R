@@ -32,7 +32,7 @@ annotations$status <- paste(annotations$status, cluster, sep="_")
   # Create the inferCNV object
 
 inf_donor_subset_sample = CreateInfercnvObject(raw_counts_matrix = donor_subset_sample@assays$RNA$counts,
-                                                annotations_file = annotations
+                                                annotations_file = annotations,
                                                 delim="\t",
                                                 gene_order_file = "/scratch/project_2010414/ot/saved/Method_tests/Sample OT_NI23-4_POOL3/hg38_gencode_v27.txt",
                                                 ref_group_names = c(paste0("reference_", cluster)))
