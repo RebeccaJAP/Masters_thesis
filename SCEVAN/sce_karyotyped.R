@@ -16,13 +16,14 @@ dataname <- commandArgs(trailingOnly = TRUE)
   # Load data subsetted by SampleID and cell type
 
 if (annot == "twopass") {
-   load(paste0("Karyotyped_donors/ref_annotated_data_d20/",dataname))}
-else (annot == "marker") {
+   load(paste0("Karyotyped_donors/ref_annotated_data_d20/",dataname))
+} else if (annot == "marker") {
   load(paste0("Karyotyped_donors/ref_annotated_data_new_cell_types/",dataname))
-  }
+}
 
   # Both files contain a Seurat object called "donor_subset_sample".
-  # The object has all of the sample's donors but the "status" column has value "observation" for the main donor and "reference" for the others.
+  # All cell lines of the pool and time point are included
+  # The cell line of interest has value "observation" in column "status", while the other cell lines' status is "reference".
 
 
   # Separate other cell lines' cells from the observations
