@@ -5,8 +5,11 @@ library(Seurat)
 set.seed(97)
 
   # Set the annotation type used:
-# annot <- "twopass"
+# annot <- "twoPass"
 annot <- "marker"
+
+  # Set the version number to separate runs with different parameter values from each other
+version <- "V1"
 
 
 
