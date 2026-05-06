@@ -1,7 +1,9 @@
+  # Load packages
 library(tidyr)
 library(dplyr)
 library(ggplot2)
 
+  # Load the metadata
 load("joined_meta.RData")
 
   # Join day 0 data with the rest of the days
@@ -16,7 +18,7 @@ d0_meta <- joined_meta %>%
 
 joined_with_d0 <- bind_rows(joined_meta, d0_meta)
 
-# Create all combinations of donor and Day_fixed per pool
+  # Create all combinations of donor and Day_fixed per pool
 prop_data_final <- joined_with_d0 %>%
   distinct(SampleID, pool, donor, Day_fixed, proportion_day_fixed, diff_method) %>%
   group_by(pool, diff_method) %>%
@@ -24,7 +26,7 @@ prop_data_final <- joined_with_d0 %>%
   mutate(proportion_day_fixed = case_when(is.na(proportion_day_fixed) ~ 0,
                                           .default = proportion_day_fixed))
 
-# Designate colors
+  # Designate colors
 cols = c("HPSI0316i-aask_4" = "hotpink",    
          "HPSI0316i-ierp_4" = "lightblue",     
          "HPSI0414i-seru_1" = "chocolate1",
@@ -63,6 +65,7 @@ cols = c("HPSI0316i-aask_4" = "hotpink",
          "HEL_312.3" = "turquoise2")
 
 
+  # Plot donor proportions across timepoints
 donor_imbalance_plot <- ggplot(prop_data_final,
                                aes(x=Day_fixed, y=proportion_day_fixed, fill=donor)) + 
   geom_area(color="white", linewidth=0.2) +
