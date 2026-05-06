@@ -18,11 +18,6 @@ if (annot == "twopass") {
   load(paste0("CNV_calling/Data/marker/",dataname))
 }
 
-
-#data <- read.table("ref_annotated_cell_types.txt", sep = "\n", header = FALSE)
-#data <- t(data)
-
-
   # Separate other donors' cells from the observations
 reference <- donor_subset_sample[,which(donor_subset_sample$status=="reference")]
 observation <- donor_subset_sample[,which(donor_subset_sample$status=="observation")]
@@ -34,8 +29,6 @@ dimnames(ref_cell) <- list(rownames(donor_subset_sample@assays$RNA$counts), c("r
   # Combine the matrices of counts of the reference and the observations.
 donor_subset_sample_mat <- cbind(observation@assays$RNA$counts, ref_cell)
 
-  # Remove the ".RData" ending from the folder name
-folder_name <- sub(".RData", "", dataname)
 
   # Run SCEVAN
 sce_donor_subset_sample <- SCEVAN::pipelineCNA(donor_subset_sample_mat,
@@ -46,4 +39,4 @@ sce_donor_subset_sample <- SCEVAN::pipelineCNA(donor_subset_sample_mat,
                                                sample = folder_name,
                                                SCEVANsignatures = FALSE)
 
-save(sce_donor_subset_sample, file=paste0("CNV_calling/SCEVAN/Results/", folder_name))
+save(sce_donor_subset_sample, file=paste0("CNV_calling/SCEVAN/Results/", dataname))
