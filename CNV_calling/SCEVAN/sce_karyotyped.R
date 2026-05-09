@@ -8,6 +8,9 @@ set.seed(97)
 annot <- "twopass"
 # annot <- "marker"
 
+  # Add version number
+V <- "V1"
+
   # This file is intended to be run as a batch job
 dataname <- commandArgs(trailingOnly = TRUE)
 
@@ -39,4 +42,4 @@ sce_donor_subset_sample <- SCEVAN::pipelineCNA(donor_subset_sample_mat,
                                                sample = folder_name,
                                                SCEVANsignatures = FALSE)
 
-save(sce_donor_subset_sample, file=paste0("CNV_calling/SCEVAN/Results/", dataname))
+save(sce_donor_subset_sample, file=paste0("CNV_calling/SCEVAN/Results/", V, "_", dataname))
