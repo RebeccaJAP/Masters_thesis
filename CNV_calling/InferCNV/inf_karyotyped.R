@@ -8,6 +8,8 @@ set.seed(97)
 annot <- "twopass"
 # annot <- "marker"
 
+  # Add version number
+V <- "V1"
 
   # This file is intended to be run as a batch job
 dataname <- commandArgs(trailingOnly = TRUE)
@@ -51,7 +53,7 @@ folder_name <- sub(".RData", "", dataname)
   # Run inferCNV
 inf_donor_subset_sample = infercnv::run(inf_donor_subset_sample,
                                         cutoff=0.1,                          # Recommended value for 10x data
-                                        out_dir= paste0("CNV_calling/InferCNV/Results/", folder_name),
+                                        out_dir= paste0("CNV_calling/InferCNV/Results/", V, "_", folder_name),
                                         # cluster_by_groups = F,               # Not relevant when only one observation group is run per time
                                         denoise=T,
                                         # BayesMaxPNormal = 0.5,               # Smaller value filters out more of the uncertain CNVs
