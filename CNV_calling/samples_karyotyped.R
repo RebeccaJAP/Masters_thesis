@@ -60,9 +60,9 @@ for (sample in unique(karyotyped_meta$new_SampleID)) {
       sample <- stri_replace_last(sample, "_", regex = "-")
         # Ensure there are no spaces in the name of the cell type
       cell_type <- stri_replace(cell_type, "-", regex = " ")
-      
+
       save(donor_subset_sample,
-           file = paste0("CNV_calling/Data/", annot, "/", annot, "_", sample, "_", donor, "_", cell_type, ".RData"))
+           file = paste0("CNV_calling/Data/", annot, "_", sample, "_", donor, "_", cell_type, ".RData"))
     }
   }
 }
