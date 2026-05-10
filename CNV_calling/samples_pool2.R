@@ -50,8 +50,8 @@ for (donor in unique(sample_meta$new_donor)) {
     sample <- stri_replace_last(sample, "_", regex = "-")
       # Ensure there are no spaces in the name of the cell type
     cell_type <- stri_replace(cell_type, "-", regex = " ")
-      
+    
     save(donor_subset_sample,
-           file = paste0("CNV_calling/Data/Pool2/", annot, "/", annot, "_", sample, "_", donor, "_", cell_type, ".RData"))
+           file = paste0("CNV_calling/Data/Pool2/", annot, "_", sample, "_", donor, "_", cell_type, ".RData"))
     }
   }
