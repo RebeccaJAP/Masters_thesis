@@ -14,7 +14,7 @@ load("Pseudobulk_data/pseudobulk_obj_pericytes_filtered.RData")
 pseudobulk_obj_per <- pseudobulk_obj
 
   # Non-pericytes
-load("Pseudobulk_data/pseudobulk_obj_othersf_filtered.RData")
+load("Pseudobulk_data/pseudobulk_obj_others_filtered.RData")
 pseudobulk_obj_others <- pseudobulk_obj
 
   # All cell types
