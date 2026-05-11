@@ -9,7 +9,7 @@ annot <- "twopass"
 # annot <- "marker"
 
   # Read the original Seurat object
-obj <- readRDS("obj.RDS")
+obj <- readRDS("otPools_all_integrated.RDS")
 
   # Use the updated metadata to get the marker-based cell types:
 load("joined_meta.RData")
