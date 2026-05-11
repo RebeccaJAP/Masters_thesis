@@ -145,25 +145,25 @@ pseudobulk_cell_cycle_scoring <- function(pseudobulk_obj) {
 
 pseudobulk_obj <- pseudobulking(type = 1)
 pseudobulk_obj <- pseudobulk_cell_cycle_scoring(pseudobulk_obj)
-save(pseudobulk_obj, file = "Pseudobulk/pseudobulk_obj_unfiltered.RData")
+save(pseudobulk_obj, file = "Pseudobulk_data/pseudobulk_obj_unfiltered.RData")
 
 
 pseudobulk_obj <- pseudobulking(type = 2)
 pseudobulk_obj <- pseudobulk_cell_cycle_scoring(pseudobulk_obj)
-save(pseudobulk_obj, file = "Pseudobulk/pseudobulk_obj_filtered.RData")
+save(pseudobulk_obj, file = "Pseudobulk_data/pseudobulk_obj_filtered.RData")
 
 
 pseudobulk_obj <- pseudobulking(type = 3)
 pseudobulk_obj <- pseudobulk_cell_cycle_scoring(pseudobulk_obj)
-save(pseudobulk_obj, file = "Pseudobulk/pseudobulk_obj_pericytes_others_filtered.RData")
+save(pseudobulk_obj, file = "Pseudobulk_data/pseudobulk_obj_pericytes_others_filtered.RData")
 
 
 pseudobulk_obj <- pseudobulking(type = 4)
 pseudobulk_obj <- pseudobulk_cell_cycle_scoring(pseudobulk_obj$nonPericyte)
-save(pseudobulk_obj, file = "Pseudobulk/pseudobulk_obj_others_filtered.RData")
+save(pseudobulk_obj, file = "Pseudobulk_data/pseudobulk_obj_others_filtered.RData")
 
 pseudobulk_obj <- pseudobulk_cell_cycle_scoring(pseudobulk_obj$pericyte)
-save(pseudobulk_obj, file = "Pseudobulk/pseudobulk_obj_pericytes_filtered.RData")
+save(pseudobulk_obj, file = "Pseudobulk_data/pseudobulk_obj_pericytes_filtered.RData")
 
 
 
