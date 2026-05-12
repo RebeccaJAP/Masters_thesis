@@ -12,12 +12,13 @@ Sanger_ref <- pseudobulk_obj@meta.data %>%
 
 Sanger_limit <- max(Sanger_ref$proportion_Per)
 
-Braun_pericyte_props <- read.table("/scratch/project_2010414/Thesis_2.1/Thesis_2.1.1/DEG/combined_proportions_per_day_fetal.csv", sep=",", header=T)
-
+  # Get the combined mean proportion of cell types corresponding to pericytes in the fetal data of Braun et al.
+Braun_pericyte_props <- read.table("Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/combined_proportions_per_day_fetal.csv", sep=",", header=T)
 Braun_limit <- subset(Braun_pericyte_props, Days_fixed == 35)$X0
 
+  # Set colors
+colors <- c("hotpink", "#EF9AA8", "pink", "mediumorchid1", "#E0405B", "thistle2","chocolate1", "goldenrod1", "tan", "peachpuff")
 
-colors <- c("hotpink", "#EF9AA8", "pink", "mediumorchid1", "#E0405B", "thistle2","chocolate1", "goldenrod1", "tan", "peachpuff","olivedrab2", "lightgreen",  "slateblue1", "limegreen", "darkolivegreen1","#1CC9BB","lightgoldenrod")
 
   # Check how well each limit separates high- and low-pericyte donors
 ggplot(data, aes(x = reorder(paste(pool, donor, sep="_"), -proportion_Per), y = proportion_Per)) +
@@ -36,7 +37,6 @@ ggplot(data, aes(x = reorder(paste(pool, donor, sep="_"), -proportion_Per), y = 
   annotate("text", x = 80, y = Braun_limit + 0.007, label = "Braun et al.", size = 2) +
   annotate("text", x = 80, y = mean(data$proportion_Per) + 0.007, label = "Mean proportion d20", size = 2) +
   annotate("text", x = 80, y = 0.107, label = "Selected limit", size = 2)
-
 
 
   # Check how the limits separate high- and low-pericyte donors withing each pool
