@@ -1,4 +1,7 @@
   # Load packages
+library(ComplexHeatmap)
+library(rlist)
+library(gridtext)
 library(ggplot2)
 library(edgeR)
 library(tidyr)
