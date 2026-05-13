@@ -212,3 +212,77 @@ save(downregulated_genes,
      file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/limma_4_down_pericyte_high_low.RData")
 save(upregulated_genes,
      file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/limma_4_up_pericyte_high_low.RData")
+
+
+  # Create an upset plot
+
+  # Set color palette
+palette_all <- list.reverse(c("slateblue1", "hotpink", "limegreen", "mediumorchid1","#B57457", "chocolate1","#1CC9BB",  "goldenrod1", "#E0405B", "olivedrab2"))
+
+  # Remove the time point from pool name
+colnames(binary_mat) <- sub("\\_d..", "", colnames(binary_mat))
+
+  # Create and normalize a matrix with intersections of all differentially expressed genes between different pool combination
+comb_mat <- make_comb_mat(binary_mat, mode = "intersect")
+comb_mat <- normalize_comb_mat(comb_mat, full_comb_sets = T)
+
+  # Get the combination sizes, i.e. how many differentially expressed genes per pool combination
+cs = comb_size(comb_mat)
+
+  # Get the set sizes, i.e. how many differentially expressed genes per pool
+ss = set_size(comb_mat)
+
+  # Create a data frame combining above information for ordering the combinations
+order_df <- data.frame(name = comb_name(comb_mat), degree = comb_degree(comb_mat), size = cs)
+
+  # Plot the upset plot
+upset <- UpSet(comb_mat,
+               pt_size = unit(2, "mm"),
+               lwd = 1,
+               column_title = "High- vs. low-pericyte samples, day 20",
+               comb_col = palette_all[comb_degree(comb_mat)],
+               comb_order = order(-order_df$degree, order_df$size),
+               bg_pt_col = "grey58",
+               row_names_side = "left",
+               row_names_gp = grid::gpar(fontsize = 9),
+               bottom_annotation = HeatmapAnnotation("Number of pools" = factor(comb_degree(comb_mat),
+                                                                                levels = as.character(1:length(unique(data$SampleID)))),
+                                                     col = list("Number of pools" = c("1" = palette_all[1],
+                                                                                      "2" = palette_all[2],
+                                                                                      "3" = palette_all[3],
+                                                                                      "4" = palette_all[4],
+                                                                                      "5"=palette_all[5],
+                                                                                      "6"=palette_all[6],
+                                                                                      "7"=palette_all[7])),
+                                                     show_annotation_name = F),
+               top_annotation = HeatmapAnnotation("Gene intersection size" = anno_barplot(cs,
+                                                                                          gp = gpar(fill = palette_all[comb_degree(comb_mat)],
+                                                                                                    col = palette_all[comb_degree(comb_mat)]), 
+                                                                                          border = F,
+                                                                                          add_numbers = F,
+                                                                                          numbers_gp = gpar(fontsize = 5),
+                                                                                          numbers_rot = 90,
+                                                                                          height = unit(4, "cm")),
+                                                  annotation_name_side = c("left"),
+                                                  annotation_name_gp = gpar(fontsize = 9)),
+               right_annotation = rowAnnotation("Differentially expressed \ngenes per pool" = anno_barplot(ss,
+                                                                                                           gp = gpar(fill = "black",
+                                                                                                                     col="black"),
+                                                                                                           axis_param = list(
+                                                                                                             labels = ss,
+                                                                                                             labels_rot = 0),
+                                                                                                           border = F,
+                                                                                                           width = unit(4, "cm"),
+                                                                                                           add_numbers = T,
+                                                                                                           numbers_gp = gpar(fontsize = 8)),
+                                                annotation_name_gp = gpar(fontsize = 9)))
+
+
+upset
+
+# Save the upset plot
+pdf(file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/Pericyte_high_low_DGE_upset.pdf",
+    width = 11,
+    height = 5)
+plot(upset)
+dev.off()
