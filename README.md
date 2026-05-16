@@ -53,8 +53,8 @@ donorSample             | Columns "SampleID" and "donor" combined               
 | proportion_day_fixed | Donor cells' proportion of all pool cells on the sequencing day | 0.2248645, 0.2248645, 0.1302366 |
 | R[^2] | R number; reflects cell line imbalance | 1.3491868, 1.3491868, 0.7814194 |
 | donor_short | Short form of the donor name | "aask_4", "aask_4", "oadp_4" |
-| prop_patient_orig | Proportion of patients in all donors of the pool on day 0[^1] | XXX |
-| patient_prop | Proportion of patients in all donors of the pool on the sequencing day |XXX|
+| prop_patient_orig | Proportion of patients in all donors of the pool on day 0[^1] | 0.6666667, 0.6666667, 0.6666667 |
+| patient_prop | Proportion of patients in all donors of the pool on the sequencing day |0.6666667, 0.6666667, 0.6666667|
 | sendai | Is the number of reads positive for sendai virus > 0? | 1, 1, 1 |
 | sendai_approx | Is the number of reads positive for sendai virus $\ge$ 10? | 1, 1, 1 |
 | proportion_Per[^2] | Cell line pericyte proportion | 0.1063013699, 0.1063013699, 0.0009460738 |
