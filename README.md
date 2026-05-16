@@ -5,6 +5,7 @@ The thesis addresses cell line imbalance and alternate cell fate commitment in n
 
 The original metadata, the additional metadata, and the variables added in the process of the research are presented in Tables 1, 2, and 3, respectively.
 
+<br>
 **Table 1.** The variables in the original metadata of the single-cell RNA sequencing data object.
 | Variable name           | Explanation                                                      | First three values                                    |
 |-----------------------------------------|--------------------------------------------------|----------------------------------------|
@@ -32,6 +33,9 @@ The original metadata, the additional metadata, and the variables added in the p
 donorSample             | Columns "SampleID" and "donor" combined                           | "OT_NI23-1_Pool_d20.HPSI0316i-aask_4", "OT_NI23-1_Pool_d20.HPSI0316i-aask_4", "OT_NI23-1_Pool_d20.HPSI0316i-aask_4" |
 [^1]: For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
 
+<br>
+<br>
+
 **Table 2.** The additional, donor-level metadata variables relevant to the analyses.
 | Variable name | Explanation | First three values |
 |---------------|-------------|-------------------|
@@ -41,7 +45,8 @@ donorSample             | Columns "SampleID" and "donor" combined               
 | pluri_raw | Pluripotency score: how pluripotent the cells are? | 25.555, 25.555, 34.876 | 
 | pluri_novelty | Novelty score: how different is the line from normal pluripotent samples? | 1.658, 1.658, 1.408 |
 
-
+<br>
+<br>
 **Table 3.** New variables created and used in the analyses.
 | Variable name | Explanation | First three values |
 |---------------|-------------|-------------------|
