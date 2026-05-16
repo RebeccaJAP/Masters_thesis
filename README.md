@@ -1,4 +1,5 @@
 # Transcriptomic characterization of differentiation dynamics in hiPSC-derived cortical neurons
+## Master's Thesis in Life Science Informatics
 
 The thesis addresses cell line imbalance and alternate cell fate commitment in neurons differentiating from human induced pluripotent stem cells by analysing single-cell RNA sequencing data. The codes needed to reproduce the results presented in the thesis are included in this repository.
 
@@ -14,7 +15,7 @@ The original metadata and the variables added in the process of the research are
 | SampleID                | Pool name and fixed sequencing day                               | "OT_23-1_Pool_d20", "OT_23-1_Pool_d20", "OT_23-1_Pool_d20"  |
 | BatchID                 | Sequencing batch                                                 | "Batch1_090323", "Batch1_090323", "Batch1_090323"           |
 | Day                     | Sequencing day                                                   | 20, 20, 20                                                  |
-| donor                   | Donor name $^\text{a}$                                           | "HPSI0316i-aask_4", "HPSI0316i-aask_4", "HPSI0516i-oadp_4"  |
+| donor                   | Donor name[^1]                                           | "HPSI0316i-aask_4", "HPSI0316i-aask_4", "HPSI0516i-oadp_4"  |
 | percent.mt              | Percentage of mitochondrial genes                                | 6.320974, 5.052858, 3.584229                                |
 | percent.ribo            | Percentage of ribosomal genes                                    | 13.26447, 18.22254, 16.67861                                |
 | Condition               | Patient NDD, KO and correction status                            | "Kabuki", "Kabuki", "Kabuki"                                |
@@ -33,4 +34,4 @@ The original metadata and the variables added in the process of the research are
 | twoPassAnnotation_clean | Cell type based on the two-pass annotation                        | "oRG", "vRG", "panRG-O"                                     |
 | Day_fixed               | Sequencing day rounded to the nearest ten                         | 20, 20, 20                                                  |
 
-$^\text{a}$ For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
+[^1]: For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
