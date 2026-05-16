@@ -82,8 +82,8 @@ donorSample             | Columns "SampleID" and "donor" combined               
 | new_SampleID  | SampleID with underscores replaced with hyphens for smoother join with the pseudobulk object | "OT-23-1-Pool-d20", "OT-23-1-Pool-d20", "OT-23-1-Pool-d20"|
 | new_donor | donor with underscores replaced with hyphens for smoother join with the pseudobulk object | "HPSI0316i-aask-4", "HPSI0316i-aask-4", "HPSI0516i-oadp-4" |
 | cell_type_group | Is the cell a pericyte or of any other cell type? | "nonPericyte", "nonPericyte", "nonPericyte" |
-| s[^2][^4] | Cell line level cell cycle score for the synthesis phase | XXX |
-| g2m[^2][^4] | Cell line level cell cycle score for the G2 to mitosis transition | XXX |
+| s[^2][^4] | Cell line / pseudobulk sample level cell cycle score for the synthesis phase | 114.1436, 114.1436, 119.4380 |
+| g2m[^2][^4] | Cell line / pseudobulk sample level cell cycle score for the G2 to mitosis transition | 155.4930, 155.4930, 163.7894 |
 [^2]: For the indicated variables, the standard scores were also computed and appointed to a variable name consisting of the prefix "z_" and the original variable name.
 [^3]: For post-mitotic pools, day 0 is defined as the pooling day.
-[^4]: Only included in the pseudobulk objects
+[^4]: Only included in the pseudobulk object; values vary depending on how the object was pseudobulked
