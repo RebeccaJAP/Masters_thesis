@@ -7,7 +7,7 @@ The original metadata, the additional metadata, and the variables added in the p
 
 
 /
-/
+
 
 **Table 1.** The variables in the original metadata of the single-cell RNA sequencing data object.
 | Variable name           | Explanation                                                      | First three values                                    |
@@ -37,8 +37,7 @@ donorSample             | Columns "SampleID" and "donor" combined               
 [^1]: For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
 
 
-/
-/
+\vspace{10cm}
 
 
 **Table 2.** The additional, donor-level metadata variables relevant to the analyses.
