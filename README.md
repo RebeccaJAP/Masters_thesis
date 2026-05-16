@@ -1,5 +1,5 @@
 | Variable name           | Explanation                                                      | First three values                                    |
-|--------------------------------------------------|------------------------------------------|-------------------------------------------------------------|
+|-------------------------------------------------|------------------------------------------|-------------------------------------------------------|
 | orig.ident              | aa                                                                | "OT_Helsinki", "OT_Helsinki", "OT_Helsinki"                 |
 | nCount_RNA              | Total number of molecules in cell                                 | 14613, 22319, 20915                                         |
 | nFeature_RNA            | Total number of genes in cell                                     | 4840, 5902, 6120                                            |
@@ -7,7 +7,7 @@
 | SampleID                | Pool name and fixed sequencing day                                | "OT_23-1_Pool_d20", "OT_23-1_Pool_d20", "OT_23-1_Pool_d20"  |
 | BatchID                 | Sequencing batch                                                  | "Batch1_090323", "Batch1_090323", "Batch1_090323"           |
 | Day                     | Sequencing day                                                    | 20, 20, 20                                                  |
-| donor                   | Donor name$^\text{a}$                                             | "HPSI0316i-aask_4", "HPSI0316i-aask_4", "HPSI0516i-oadp_4"  |
+| donor                   | Donor name $^\text{a}$                                             | "HPSI0316i-aask_4", "HPSI0316i-aask_4", "HPSI0516i-oadp_4"  |
 | percent.mt              | Percentage of mitochondrial genes                                 | 6.320974, 5.052858, 3.584229                                |
 | percent.ribo            | Percentage of ribosomal genes                                     | 13.26447, 18.22254, 16.67861                                |
 | Condition               | Patient NDD, KO and correction status                             | "Kabuki", "Kabuki", "Kabuki"                                |
@@ -25,4 +25,5 @@
 | geneMutatedOrCorrected  | The name of the gene with a mutation or a corrected mutation      | "KMT2D", "KMT2D", "KMT2D"                                   | 
 | twoPassAnnotation_clean | Cell type based on the two-pass annotation                        | "oRG", "vRG", "panRG-O"                                     |
 | Day_fixed               | Sequencing day rounded to the nearest ten                         | 20, 20, 20                                                  |
+
 $^\text{a}$ For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
