@@ -6,7 +6,8 @@ The thesis addresses cell line imbalance and alternate cell fate commitment in n
 The original metadata, the additional metadata, and the variables added in the process of the research are presented in Tables 1, 2, and 3, respectively.
 
 
-
+/
+/
 
 **Table 1.** The variables in the original metadata of the single-cell RNA sequencing data object.
 | Variable name           | Explanation                                                      | First three values                                    |
@@ -36,7 +37,8 @@ donorSample             | Columns "SampleID" and "donor" combined               
 [^1]: For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
 
 
-
+/
+/
 
 
 **Table 2.** The additional, donor-level metadata variables relevant to the analyses.
@@ -49,7 +51,8 @@ donorSample             | Columns "SampleID" and "donor" combined               
 | pluri_novelty | Novelty score: how different is the line from normal pluripotent samples? | 1.658, 1.658, 1.408 |
 
 
-
+/
+/
 
 **Table 3.** New variables created and used in the analyses.
 | Variable name | Explanation | First three values |
@@ -58,20 +61,20 @@ donorSample             | Columns "SampleID" and "donor" combined               
 | freq_donor | Number of donor cells per cell line | 1825, 1825, 1057 | 
 | first_day | The first time point available for the pool | 20, 20, 20 |
 | donors_per_pool | The original number of donors in pool | 6, 6, 6 |
-| proportion_d0 | Donor cells' proportion of all pool cells on day 0[^2] | 0.1666667, 0.1666667, 0.1666667 |
-| proportion_day_fixed | Donor cells' proportion of all pool cells on the sequencing day | 0.2248645, 0.2248645, 0.1302366 |
+| proportion_d0 | Proportion of donor's cells of all pool cells on day 0[^2] | 0.1666667, 0.1666667, 0.1666667 |
+| proportion_day_fixed | Proportion of donor's cells of all pool cells on the sequencing day | 0.2248645, 0.2248645, 0.1302366 |
 | R[^3] | R number; reflects cell line imbalance | 1.3491868, 1.3491868, 0.7814194 |
 | donor_short | Short form of the donor name | "aask_4", "aask_4", "oadp_4" |
-| prop_patient_orig | Proportion of patients in all donors of the pool on day 0[^1] | 0.6666667, 0.6666667, 0.6666667 |
-| patient_prop | Proportion of patients in all donors of the pool on the sequencing day |0.6666667, 0.6666667, 0.6666667|
+| prop_patient_orig | Proportion of patient lines of all pool cell lines on day 0[^1] | 0.6666667, 0.6666667, 0.6666667 |
+| patient_prop | Proportion of patient lines of all pool cell lines on the sequencing day |0.6666667, 0.6666667, 0.6666667|
 | sendai | Is the number of reads positive for sendai virus > 0? | 1, 1, 1 |
 | sendai_approx | Is the number of reads positive for sendai virus $\ge$ 10? | 1, 1, 1 |
-| proportion_Per[^3] | Cell line pericyte proportion | 0.1063013699, 0.1063013699, 0.0009460738 |
-| proportion_vRG[^3] | Cell line vRG cell proportion | 0.4400000, 0.4400000, 0.5600757	 |
-| proportion_panRG_O[^3] | Cell line panRG cell proportion | 0.08109589, 0.08109589, 0.14191107 |
-| proportion_PgS[^3] | Cell line PgS cell proportion | 0.03452055, 0.03452055, 0.07000946 |
-| proportion_oRG[^3] | Cell line oRG cell proportion | 0.10575342, 0.10575342, 0.10575342	|
-| proportion_PgG2M[^3] | Cell line PgG2M cell proportion | 0.06684932, 0.06684932, 0.09933775 |
+| proportion_Per[^3] | Proportion of pericytes of all pool cells | 0.1063013699, 0.1063013699, 0.0009460738 |
+| proportion_vRG[^3] | Proportion of vRG cells of all pool cells | 0.4400000, 0.4400000, 0.5600757	 |
+| proportion_panRG_O[^3] | Proportion of panRG cells of all pool cells | 0.08109589, 0.08109589, 0.14191107 |
+| proportion_PgS[^3] | Proportion of PgS cells of all pool cells | 0.03452055, 0.03452055, 0.07000946 |
+| proportion_oRG[^3] | Proportion of oRG cells of all pool cells | 0.10575342, 0.10575342, 0.10575342	|
+| proportion_PgG2M[^3] | Proportion of PgG2M cells of all pool cells | 0.06684932, 0.06684932, 0.09933775 |
 | diff_method | Were the cells differentiated individually, in a cell village, or pooled post-mitotically? | "pool", "pool", "pool" |
 | new_SampleID  | SampleID with underscores replaced with hyphens for smoother join with the pseudobulk object | "OT-23-1-Pool-d20", "OT-23-1-Pool-d20", "OT-23-1-Pool-d20"|
 | new_donor | donor with underscores replaced with hyphens for smoother join with the pseudobulk object | "HPSI0316i-aask-4", "HPSI0316i-aask-4", "HPSI0516i-oadp-4" |
