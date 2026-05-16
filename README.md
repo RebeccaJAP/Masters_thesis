@@ -26,12 +26,7 @@ The original metadata and the variables added in the process of the research are
 | predicted.celltype.dfSecondary | Cell type suggested by the second mapping                 | "AstroHindb", "AstroHindb", "panRG"                         |
 | predicted.celltype.score.dfSecondary | Certainty score for the second mapping              | 0.5534580, 0.6376691, 0.5051829                             |
 | mapRef.dfSecondary      | Reference used in the second mapping                             | "secondaryMapRef_BhaduriOrganoids",                                                                                                                             "secondaryMapRef_BhaduriOrganoids",                                                                                                                             "secondaryMapRef_BhaduriOrganoids"                          |
-| twoPassAnnotation       | Cell type annotated based on the two mappings                    | "oRG", "vRG", "panRG-O"                                     |
-| onlyFirstPass           | Result of the fist mapping after accounting for the certainty score | "oRG", "vRG", "Unmapped"                                  |
-| onlySecondPass          | Result of the second mapping after accounting for the certainty score | "AstroHindb", "AstroHindb", "panRG"                     
-| twoPassAnnotation_clean | The final two-pass annotation with rare cell types categorized as "Others" | 
-| geneMutatedOrCorrected  | The name of the gene with a mutation or a corrected mutation      | "KMT2D", "KMT2D", "KMT2D"                                   | 
-| twoPassAnnotation_clean | Cell type based on the two-pass annotation                        | "oRG", "vRG", "panRG-O"                                     |
+| twoPassAnnotation_clean | Cell type based on the two-pass annotation                        | "oRG", "vRG", "panRG-O"                             |
 | Day_fixed               | Sequencing day rounded to the nearest ten                         | 20, 20, 20                                                  |
-
+| unifiedSampleID         | SampleID in a unified form for all pools                          | "OT_NI23-1_Pool_d20", "OT_NI23-1_Pool_d20", "OT_NI23-1_Pool_d20" | donorSample             | Columns "SampleID" and "donor" combined                           | "OT_NI23-1_Pool_d20.HPSI0316i-aask_4", "OT_NI23-1_Pool_d20.HPSI0316i-aask_4", "OT_NI23-1_Pool_d20.HPSI0316i-aask_4" |
 [^1]: For the HipSci donors, number at the end of the donor name indicated the iPSC line number derived from the donor tissue sample
