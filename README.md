@@ -6,7 +6,7 @@ The original metadata and the variables added in the process of the research are
 
 **Table 1.** The variables in the original metadata of the single-cell RNA sequencing data object.
 | Variable name           | Explanation                                                      | First three values                                    |
-|-------------------------------------------------|-----------------------------------------------|--------------------------------------------|
+|-----------------------------------------|--------------------------------------------------|----------------------------------------|
 | orig.ident              | Identity class                                                   | "OT_Helsinki", "OT_Helsinki", "OT_Helsinki"                 |
 | nCount_RNA              | Total number of molecules in cell                                | 14613, 22319, 20915                                         |
 | nFeature_RNA            | Total number of genes in cell                                    | 4840, 5902, 6120                                            |
