@@ -212,9 +212,9 @@ upregulated_genes <- heatmap_df %>%
 
   # Save the genes for further analysis
 save(downregulated_genes,
-     file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/limma_4_down_pericyte_high_low.RData")
+     file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/limma_down_pericyte_high_low.RData")
 save(upregulated_genes,
-     file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/limma_4_up_pericyte_high_low.RData")
+     file = "Gene_expression_analyses/DGE_and_GO_enrichment/Pericyte_high_low/limma_up_pericyte_high_low.RData")
 
 
   # Create an upset plot
