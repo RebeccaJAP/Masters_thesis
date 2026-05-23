@@ -12,6 +12,7 @@ library(AnnotationDbi)
 library(org.Hs.eg.db)
 library(dplyr)
 library(Seurat)
+library(ggplot2)
 
   # Load the up- and down-regulated genes and the pseudobulk object
 if (comparison == "pericytes_others") {
