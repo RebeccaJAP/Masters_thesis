@@ -5,6 +5,7 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(Seurat)
+library(ggpubr)
 
 
     ## Apoptosis and GSVA
@@ -91,7 +92,7 @@ cor_plot <- ggplot(gsva_long, aes(x = GSVA_scores, y = proportion_Per, color = a
   ylab("Pericyte proportion") +
   facet_wrap(vars(Pathways, pathway_gene_count),
              labeller = labeller(Pathways = 
-                                   c(gobp_apop_devl_pathway = "GOBD apoptotic process involved in development",
+                                   c(gobp_apop_devl_pathway = "GOBD apoptotic process \ninvolved in development",
                                      gobp_apop_pathway = "GOBD apoptotic process",
                                      gobp_apop_sign_pathway = "GOBD apoptotic signaling",
                                      hm_apop_pathway = "HM apoptotic process",
@@ -99,9 +100,10 @@ cor_plot <- ggplot(gsva_long, aes(x = GSVA_scores, y = proportion_Per, color = a
   scale_color_manual(values = c("slateblue1", "hotpink",  "olivedrab2", "goldenrod1", "chocolate1")) +
    stat_cor(inherit.aes = F,
     data = gsva_long,
-     method = "kendall",
-     cor.coef.name = "tau",
-     aes(x=GSVA_scores, y=proportion_Per)) 
+    method = "kendall",
+    cor.coef.name = "tau",
+    p.accuracy = 0.001,
+    aes(x=GSVA_scores, y=proportion_Per)) 
 
   # Save the plot
 pdf(file=paste0("Gene_expression_analyses/gsva_cor_plot_apoptosis.pdf"), paper = "a5r")
@@ -135,6 +137,9 @@ hm_apoptosis_violin <- ggplot(data = obj@meta.data, aes(x = as.factor(Day_fixed)
   theme(legend.position="none")
 
   # Save the plot
-pdf(file=paste0("Gene_expression_analyses/apoptosis_violin.pdf"), paper = "a5r")
+pdf(file=paste0("Gene_expression_analyses/apoptosis_violin.pdf"), height = 3.0, width = 8.27)
 plot(hm_apoptosis_violin)
 dev.off()
+
+
+
