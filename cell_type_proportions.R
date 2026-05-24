@@ -53,11 +53,14 @@ palette = c("Per" = "slateblue1",
 cell_types <- c("Per", "vRG", "oRG", "panRG-O", "hRG-O", "LQ-RG-O", "IP", "PgS", "PgG2M", "ExDp1", "ExPanNeu-O", "ExNeuNew-O", "ExDp2", "ExN", "ExU-O", "InCGE", "InMGE", "End", "AstroHindb-O", "OPC", "Mic", "Unmapped", "Others")
 
   # Create the plot
+  # the lines commented out create a plot that fits an a4 page
 cell_type_prop_plot <- ggplot(cell_type_proportion, aes(fill=factor(cell_type_annot, levels = cell_types), y=proportion, x=donor)) +
   geom_bar(position="stack", stat="identity") +
   scale_fill_manual(values = palette, breaks = cell_types) + 
   scale_x_discrete(guide=guide_axis(angle=90)) +
-  facet_wrap(~label, scales = "free_x", labeller = label_wrap_gen(10)) +
+  facet_wrap(~label, scales = "free_x", labeller = label_wrap_gen(10),
+             # ncol = 6) +
+             ncol = 7) +
   ggtitle("Proportions of cell types per pool, day, and donor") +
   theme(axis.text.x = element_text(size = 8) ,
         axis.text.y = element_text(size = 8),
@@ -68,13 +71,14 @@ cell_type_prop_plot <- ggplot(cell_type_proportion, aes(fill=factor(cell_type_an
         legend.text = element_text(size = 8),
         legend.key.size = unit(0.4, 'cm'),
         legend.margin = margin(t = 0, r = 0, b = 0, l = -8),
-        legend.position.inside = c(.85, .03),
+ #       legend.position.inside = c(.85, .03), 
         panel.spacing.x = unit(0.1, "cm")) +
-  guides(fill = guide_legend(position = "inside", ncol = 2, title.position = "left")) +
+#  guides(fill = guide_legend(position = "inside", ncol = 2, title.position = "left")) +
+  guides(fill = guide_legend(ncol = 1)) +
   labs(fill = "Cell type") +
   ylab("Proportion of donor cells") +
   xlab("Donor")
 
-pdf(file=paste0("cell_type_proportions_plot.pdf"), paper = "a4")
+pdf(file=paste0("cell_type_proportions_plot.pdf"), width = 10, height = 10)
 plot(cell_type_prop_plot)
 dev.off()
