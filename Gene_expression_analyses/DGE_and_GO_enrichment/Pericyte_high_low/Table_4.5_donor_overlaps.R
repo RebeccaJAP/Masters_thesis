@@ -8,13 +8,13 @@ library(ggplot2)
   # Load the filtered pseudobulk object
 load("Pseudobulk_data/pseudobulk_obj_filtered.RData")
 
-  # Categorize the cell lines as either high- or low-pericyte
+  # Categorize the replicates as either high- or low-pericyte
 pseudobulk_obj@meta.data <- pseudobulk_obj@meta.data %>%
   mutate(per_category = case_when(Day_fixed == 20 & proportion_Per > 0.1 ~ "high",
                                   Day_fixed == 20 & proportion_Per <= 0.1 ~ "low"))
 
 
-  # Get samples with at least one low-pericyte and one high-pericyte cell line
+  # Get samples with at least one low-pericyte and one high-pericyte replicate
   # and filter out individual lines and later time points
 data <- pseudobulk_obj@meta.data %>%
   filter(diff_method != "indv" & Day_fixed == 20) %>%
@@ -26,8 +26,8 @@ data <- pseudobulk_obj@meta.data %>%
   # Get the SampleIDs of the pools of interest
 valid_samples <- unique(data$SampleID)
 
-  # For each donor, get the total number of cell lines, the number of pericyte-high cell lines,
-  #and the number of pericyte-low cell lines
+  # For each donor, get the total number of replicates, the number of pericyte-high replicates,
+  #and the number of pericyte-low replicates
 check_overlap <- data %>%
   filter(SampleID %in% valid_samples) %>%
   group_by(donor) %>%
@@ -104,7 +104,7 @@ final_table <- check_overlap %>%
   distinct() %>%
   ungroup() %>%
   gt() %>%
-  cols_label(donor = "Donor", samples_donor = "Number of donor cell lines", Distribution = gt::html(label_built)) %>%
+  cols_label(donor = "Donor", samples_donor = "Number of replicates", Distribution = gt::html(label_built)) %>%
   cols_align(align = c("center"),
              columns = c(-donor)) %>%
   tab_options(data_row.padding = px(0)) %>%
