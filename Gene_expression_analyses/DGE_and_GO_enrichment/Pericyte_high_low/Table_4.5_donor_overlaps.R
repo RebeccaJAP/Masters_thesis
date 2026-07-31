@@ -84,15 +84,15 @@ plot_stacked_bar_donor <- function(donor_i) {
 labels = c("Low-pericyte", "high-pericyte")
 
 label_built <- if (length(labels) == 2) {
-  lab_pal1 <- colors2[2]
-  lab_pal2 <- colors2[1]
+  lab_pal1 <- colors[2]
+  lab_pal2 <- colors[1]
   lab1 <- labels[1]
   lab2 <- labels[2]
   glue::glue(
     "<span style='color:{lab_pal1}'><b>{lab1}</b></span>",
     " vs. ",
     "<span style='color:{lab_pal2}'><b>{lab2}</b></span>",
-    " cell lines"
+    " replicates"
   ) %>%
     gt::html()
 }
